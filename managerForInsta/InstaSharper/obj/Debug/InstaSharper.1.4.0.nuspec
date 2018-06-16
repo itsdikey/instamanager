@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>InstaSharper</id>
+    <version>1.4.0</version>
+    <authors>InstaSharper</authors>
+    <owners>InstaSharper</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Private API for Instagram</description>
+    <dependencies>
+      <group targetFramework=".NETFramework4.5.2">
+        <dependency id="Newtonsoft.Json" version="10.0.3" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETFramework4.7.1">
+        <dependency id="Newtonsoft.Json" version="10.0.3" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Newtonsoft.Json" version="10.0.3" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="Microsoft.CSharp" targetFramework=".NETFramework4.5.2, .NETFramework4.7.1" />
+      <frameworkAssembly assemblyName="System" targetFramework=".NETFramework4.5.2, .NETFramework4.7.1" />
+      <frameworkAssembly assemblyName="System.Net.Http" targetFramework=".NETFramework4.5.2, .NETFramework4.7.1" />
+      <frameworkAssembly assemblyName="System.Web" targetFramework=".NETFramework4.5.2, .NETFramework4.7.1" />
+    </frameworkAssemblies>
+  </metadata>
+  <files>
+    <file src="C:\Users\garmu\source\repos\InstaManager\managerForInsta\InstaSharper\bin\Debug\net452\InstaSharper.dll" target="lib\net452\InstaSharper.dll" />
+    <file src="C:\Users\garmu\source\repos\InstaManager\managerForInsta\InstaSharper\bin\Debug\net471\InstaSharper.dll" target="lib\net471\InstaSharper.dll" />
+    <file src="C:\Users\garmu\source\repos\InstaManager\managerForInsta\InstaSharper\bin\Debug\netstandard2.0\InstaSharper.dll" target="lib\netstandard2.0\InstaSharper.dll" />
+  </files>
+</package>

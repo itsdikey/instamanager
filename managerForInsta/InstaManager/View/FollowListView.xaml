@@ -1,0 +1,94 @@
+﻿<UserControl x:Class="InstaManager.View.FollowListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:InstaManager.View"
+             xmlns:controls="clr-namespace:InstaManager.Controls"
+             xmlns:viewModel="clr-namespace:InstaManager.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="360" d:DesignWidth="720">
+    <UserControl.DataContext>
+        <viewModel:FollowListViewModel x:Name="FollowListViewModel"/>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
+    <Grid>
+        <ListView BorderThickness="0.1" x:Name="ListView" Background="Transparent" Style="{DynamicResource CustomListView}" ItemsSource="{Binding Followers}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                <ContentPresenter />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Focusable" Value="false"/>
+                    <Style.Resources>
+
+                        <!-- Background for Selected ListViewItem -->
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
+                                             Color="#FF747474"/>
+
+                        <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Transparent" />
+                    </Style.Resources>
+
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderThickness="0,0,0,0" Width="680" BorderBrush="#747474" HorizontalAlignment="Stretch" Height="80">
+                        <Grid Width="680">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Image x:Name="UserImage" Width="75" Height="75" Source="{Binding OtherUser.ProfilePicture}">
+                                <Image.Clip>
+                                    <EllipseGeometry Center="37.5,37.5" RadiusX="30" RadiusY="30"/>
+                                </Image.Clip>
+                            </Image>
+                            <StackPanel Grid.Column="1" Margin="2,5" VerticalAlignment="Center">
+                                <TextBlock x:Name="UserName" Foreground="White" FontSize="22" Text="{Binding OtherUser.UserName}"/>
+                                <TextBlock x:Name="FullName" Foreground="#74747474" FontSize="18" Text="{Binding OtherUser.FullName}"/>
+                            </StackPanel>
+                            <Grid Grid.Column="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid>
+                                    <Viewbox Width="48" Height="48" HorizontalAlignment="Center" Margin="20,0,0,0" x:Name="IFollow" Visibility="{Binding Path=IsFollowed, Converter={StaticResource BoolToVis}}">
+                                        <Canvas Width="24" Height="24">
+                                            <Path Data="M5,17.59L15.59,7H9V5H19V15H17V8.41L6.41,19L5,17.59Z" Fill="#FF652F" />
+                                        </Canvas>
+                                    </Viewbox>
+
+
+                                    <Viewbox Width="48" Height="48" x:Name="FollowsMe" Visibility="{Binding Path=Follows, Converter={StaticResource BoolToVis}}">
+                                        <Canvas Width="24" Height="24" Margin="-20,0,0,0">
+                                            <Path Data="M19,6.41L17.59,5L7,15.59V9H5V19H15V17H8.41L19,6.41Z" Fill="#14A76C" />
+                                        </Canvas>
+                                    </Viewbox>
+                                </Grid>
+
+                                <controls:FollowButton Grid.Column="1" IsFollowed="{Binding IsFollowed}" AssociatedFollower="{Binding}" Following="{Binding Follows}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" Command="{Binding Source={x:Reference FollowListViewModel}, Path=FollowButtonClicked}" UserId="{Binding OtherUser.Pk}" />
+
+
+
+                            </Grid>
+
+
+                            <Rectangle Grid.Column="0" Grid.ColumnSpan="3" Height="2" Margin="70,0" Fill="#747474" VerticalAlignment="Bottom"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+
+            </ListView.ItemTemplate>
+        </ListView >
+    </Grid>
+</UserControl>

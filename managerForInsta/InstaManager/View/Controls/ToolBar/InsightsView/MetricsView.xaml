@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="InstaManager.View.Controls.InsightsView.MetricsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:InstaManager.View.Controls.InsightsView"
+             xmlns:insightsView="clr-namespace:InstaManager.ViewModel.Controls.ToolBar.InsightsView"
+             mc:Ignorable="d" 
+             d:DesignHeight="350" d:DesignWidth="150">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="ForegroundForTextBlock" Color="#747474"/>
+    </UserControl.Resources>
+    <UserControl.DataContext>
+        <insightsView:MetricsViewModel/>
+    </UserControl.DataContext>
+    <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Foreground="{StaticResource ForegroundForTextBlock}" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap">Do not follow me: <Run Text="{Binding MetricsModel.TheyDontFollowBack}"/></TextBlock>
+        <TextBlock Grid.Row="1" Foreground="{StaticResource ForegroundForTextBlock}" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap">I do not follow back: <Run Text="{Binding MetricsModel.IDontFollowBack}"/></TextBlock>
+        <Button  Grid.Row="2"  Style="{StaticResource NoneButton}" CommandParameter="{Binding  RelativeSource={RelativeSource Self} }" Command="{Binding ButtonClicked}" Cursor="Hand" Tag="followers">
+            <TextBlock Foreground="{StaticResource ForegroundForTextBlock}" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap">New Followers: <Run Text="{Binding MetricsModel.FollowMe}"/></TextBlock>
+        </Button>
+        <Button Style="{StaticResource NoneButton}" Grid.Row="3" CommandParameter="{Binding RelativeSource={RelativeSource Self} }" Command="{Binding ButtonClicked}" Cursor="Hand" Tag="unfollowers">
+            <TextBlock  Foreground="{StaticResource ForegroundForTextBlock}" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap">UnFollowers: <Run Text="{Binding MetricsModel.UnFollowedMe}"/></TextBlock>
+        </Button>
+    </Grid>
+</UserControl>

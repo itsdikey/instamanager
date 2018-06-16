@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="InstaManager.View.LoginView"
+             x:Name="LoginControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:InstaManager.View"
+             xmlns:viewModel="clr-namespace:InstaManager.ViewModel"
+             xmlns:controls="clr-namespace:InstaManager.Controls"
+             xmlns:converters="clr-namespace:InstaManager.Sources.Converters"
+             xmlns:extensions="clr-namespace:InstaManager.Extensions"
+             mc:Ignorable="d" 
+             d:DesignHeight="250" d:DesignWidth="300" >
+   <UserControl.DataContext>
+        <viewModel:LoginViewModel/>
+   </UserControl.DataContext>
+    <UserControl.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverterStraight"/>
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverterInverse" True="Collapsed" False="Visible"/>
+    </UserControl.Resources>
+    <Border BorderThickness="0.8" BorderBrush="#747474" Background="#272727">
+        <Grid>
+            <Grid Visibility="{Binding LoggingIn, Converter={StaticResource BooleanToVisibilityConverterInverse}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Rectangle Grid.RowSpan="3" Fill="#272727"/>
+                <TextBox Margin="20,15" Background="#272727" Foreground="#747474" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="18" Text="{Binding LoginModel.UserName, Mode = TwoWay}"/>
+                <PasswordBox Grid.Row="1" Background="#272727" Margin="20,15" Foreground="#747474" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="18" extensions:PasswordHelper.Attach="True" extensions:PasswordHelper.Password="{Binding LoginModel.Password, Mode=TwoWay}"/>
+                <Button Grid.Row="2"  Margin="20,15" Style="{StaticResource ShadedButton}" Command="{Binding ClickedLoginCommand}" >
+                    <TextBlock FontSize="22" Foreground="#747474">LOGIN</TextBlock>
+                </Button>
+            </Grid>
+            <Grid>
+             
+            </Grid>
+            <Grid>
+                <Viewbox Width="150" Height="150" Visibility="{Binding LoggingIn, Converter={StaticResource BooleanToVisibilityConverterStraight}}">
+                    <controls:ProgressRing/>
+                </Viewbox>
+               
+            </Grid>
+        </Grid>
+      
+    </Border>
+  
+</UserControl>

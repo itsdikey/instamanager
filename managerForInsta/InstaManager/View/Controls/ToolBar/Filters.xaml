@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="InstaManager.View.Controls.Filters"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:toolBar="clr-namespace:InstaManager.ViewModel.Controls.ToolBar"
+             mc:Ignorable="d" 
+             d:DesignHeight="180" d:DesignWidth="150">
+    <UserControl.DataContext>
+        <toolBar:FiltersViewModel/>
+    </UserControl.DataContext>
+    <Grid Grid.Row="0" Margin="5,10,5,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Button Grid.Row="1" Grid.Column="0" Margin="8" Style="{DynamicResource ShadedButton}" Padding="0" Tag="None" Command="{Binding FilterChangedCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}">
+            <Viewbox Width="48" Height="48">
+                <Canvas Width="24" Height="24">
+                    <Path Data="M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" Fill="White" />
+                </Canvas>
+            </Viewbox>
+        </Button>
+
+        <Button Grid.Row="1" Grid.Column="1" Margin="8" Style="{DynamicResource ShadedButton}" Padding="0" Tag="IFollow" Command="{Binding FilterChangedCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}">
+            <Viewbox Width="48" Height="48" HorizontalAlignment="Center" Margin="0,0,0,0" x:Name="IFollow">
+                <Canvas Width="24" Height="24">
+                    <Path Data="M5,17.59L15.59,7H9V5H19V15H17V8.41L6.41,19L5,17.59Z" Fill="#FF652F" />
+                </Canvas>
+            </Viewbox>
+
+
+        </Button>
+        <Button Grid.Row="2" Grid.Column="0" Margin="8" Style="{DynamicResource ShadedButton}" Padding="0" Tag="FollowMe" Command="{Binding FilterChangedCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}">
+            <Viewbox Width="48" Height="48" >
+                <Canvas Width="24" Height="24" Margin="0,0,0,0">
+                    <Path Data="M19,6.41L17.59,5L7,15.59V9H5V19H15V17H8.41L19,6.41Z" Fill="#14A76C" />
+                </Canvas>
+            </Viewbox>
+        </Button>
+        <Button Grid.Row="2" Grid.Column="1" Margin="8" Style="{DynamicResource ShadedButton}" Padding="0" Tag="Mutual" Command="{Binding FilterChangedCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Tag}">
+            <Grid>
+                <Viewbox Width="32" Height="32" HorizontalAlignment="Center" Margin="-20,0,0,0" >
+                    <Canvas Width="24" Height="24">
+                        <Path Data="M5,17.59L15.59,7H9V5H19V15H17V8.41L6.41,19L5,17.59Z" Fill="#FF652F" />
+                    </Canvas>
+                </Viewbox>
+                <Viewbox Width="32" Height="32" Margin="20,0,0,0" >
+                    <Canvas Width="24" Height="24" Margin="0,0,0,0">
+                        <Path Data="M19,6.41L17.59,5L7,15.59V9H5V19H15V17H8.41L19,6.41Z" Fill="#14A76C" />
+                    </Canvas>
+                </Viewbox>
+            </Grid>
+        </Button>
+        <TextBlock Foreground="#747474" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ColumnSpan="2" >-----filters-----</TextBlock>
+    </Grid>
+
+</UserControl>

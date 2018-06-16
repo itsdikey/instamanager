@@ -1,0 +1,123 @@
+﻿<Window x:Class="InstaManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InstaManager"
+        xmlns:controls="clr-namespace:InstaManager.Controls"
+        xmlns:view="clr-namespace:InstaManager.View"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="480" Width="720" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#00000000"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#00000000"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#00000000"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#00000000"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#00000000"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#00000000"/>
+        <Style x:Key="BarButton" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Rectangle x:Name="TopRectangle" Fill="#272727" Grid.ColumnSpan="2" MouseLeftButtonDown="TopRectangle_OnMouseLeftButtonDown"/>
+            <TextBlock Grid.ColumnSpan="2" Foreground="#FF652F" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17">#instaFollowMeter</TextBlock>
+            <Button Cursor="Hand" Grid.Column="1" Background="Transparent" HorizontalAlignment="Right" Margin="0,0,20,0" Style="{DynamicResource BarButton}" Click="ButtonBase_OnClick" x:Name="CloseButton">
+                <TextBlock Foreground="#747474" FontWeight="ExtraBold" HorizontalAlignment="Left">Close</TextBlock>
+            </Button>
+            <Button x:Name="MoreButton" Background="Transparent" Style="{DynamicResource BarButton}" HorizontalAlignment="Left" Margin="10,0,0,0">
+                <Viewbox Width="32" Height="32">
+                    <Canvas Width="24" Height="24">
+                        <Path Data="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z" Fill="#FF747474" />
+                    </Canvas>
+                </Viewbox>
+            </Button>
+        </Grid>
+
+
+        <!--<WebBrowser x:Name="WebBrowser" Grid.Row="1">
+
+        </WebBrowser>-->
+        <Grid Grid.Row="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Border BorderThickness="0.2" BorderBrush="#747474" Grid.ColumnSpan="3" Grid.RowSpan="2">
+                <Rectangle Fill="#272727"></Rectangle>
+            </Border>
+            <Border BorderThickness="0.4" BorderBrush="#747474" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+                <view:UserProfileView x:Name="UserProfileView" VerticalAlignment="Top" Height="80"  />
+                <!--<controls:UserProfile x:Name="UserProfile"  VerticalAlignment="Top"/>-->
+                </Border>
+            <view:FollowListView  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        
+            <controls:Toolbar x:Name="LeftToolbar" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" Width="150" HorizontalAlignment="Left" Canvas.ZIndex="100"/>
+            <!--<ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" Template="{DynamicResource LionBar}">
+                <StackPanel x:Name="FollowerList" Orientation="Vertical"></StackPanel>
+            </ScrollViewer>-->
+        </Grid>
+    </Grid>
+</Window>

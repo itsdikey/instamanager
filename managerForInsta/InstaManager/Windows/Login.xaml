@@ -1,0 +1,13 @@
+﻿<Window x:Class="InstaManager.Windows.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InstaManager.Windows"
+        xmlns:view="clr-namespace:InstaManager.View"
+        mc:Ignorable="d"
+        Title="Login" Height="250" Width="300" WindowStyle="None" ResizeMode="NoResize" Background="Transparent" WindowStartupLocation="CenterScreen" AllowsTransparency="True">
+    <Grid>
+        <view:LoginView/>
+    </Grid>
+</Window>
